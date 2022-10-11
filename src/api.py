@@ -41,16 +41,13 @@ def save_frame_camera_cycle():
         # 接続状況確認
         print(conn.is_connected())
         cur = conn.cursor(buffered=True)
-        cur.execute("SELECT spots_name, spots_url FROM spots")
+        cur.execute("SELECT spots_name, spots_url FROM spots WHERE spots_status=0")
         db_lis = cur.fetchall()
         print(db_lis[0])
         cur.close()
-
         #detect_lis(一時保存用)
         detect_lis = []
-        #現在データベースが無いため仮の2次元リストに値を保存しています
-        url_lis = [['渋谷スクランブル交差点','https://www.youtube.com/watch?v=3kPH7kTphnE'],['渋谷スクランブル交差点2','https://www.youtube.com/watch?v=3kPH7kTphnE']]
-        
+
         if os.path.isdir('yolov5-plateau-system/runs/detect/'):
             shutil.rmtree('yolov5-plateau-system/runs/detect/')
 
@@ -70,7 +67,7 @@ def save_frame_camera_cycle():
             proc = subprocess.run(['python', 'yolov5-plateau-system/main.py','--save-txt'], stdout=PIPE, stderr=PIPE)
             proc_str = proc.stdout.decode('utf-8').split()
             proc_int = [int(s) for s in proc_str]
-            #検出が終わった画像の削除(要望があれば画像のパス返す処理を追加します)
+            #検出が終わった画像の削除
             target_dir = 'yolov5-plateau-system/data/images/'
             shutil.rmtree(target_dir)
             os.mkdir(target_dir)
