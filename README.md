@@ -28,7 +28,7 @@ cd kamigame_yolov5(ブランチによって名前が変わるかも)
 docker compose up -d --build
 ```
 ```
-docker container exec -it tgs_python3 bash
+docker container exec -it plateau_system_python3 bash
 ```
 4.YOLOv5のライブラリをインストール（必ずコンテナ内で行う）
 ```
