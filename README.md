@@ -1,6 +1,6 @@
 # yolov5-fastapi
 yolov5の検出結果を返すためのAPI  
-・[メインコード](https://github.com/plateau-system/yolov5-fastapi/tree/main/src)
+・[メインコード(YOLOv5,FastAPI)](https://github.com/plateau-system/yolov5-fastapi/tree/main/src)
 ## ディレクトリ構成  
 ```
 yolov5_test
