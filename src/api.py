@@ -17,7 +17,8 @@ response_lis = [{
     'name' : "None",
     'person' : 0,
     'bicycle' : 0,
-    'car' : 0
+    'car' : 0,
+    'motorcycle' : 0
 }]
 
 def save_frame_camera_cycle():
@@ -64,7 +65,8 @@ def save_frame_camera_cycle():
                 'name' : url_lis[i2][0],
                 'person' : detect_lis[i2][0],
                 'bicycle' : detect_lis[i2][1],
-                'car' : detect_lis[i2][2]
+                'car' : detect_lis[i2][2],
+                'motorcycle' : detect_lis[i2][3]
             }
             response_lis.append(data)
 

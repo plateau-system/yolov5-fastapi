@@ -52,8 +52,8 @@ from utils.torch_utils import select_device, smart_inference_mode, time_sync
 polygon = path.Path(
     [
         [0, 0],
-        [0, 540],
-        [1920, 540],
+        [0, 1080],
+        [1920, 1080],
         [1920, 0],
     ]
 )
@@ -165,6 +165,7 @@ def run(
                 person = 0
                 bicycle = 0
                 car = 0
+                motorcycle = 0
 
                 # Rescale boxes from img_size to im0 size
                 det[:, :4] = scale_coords(im.shape[2:], det[:, :4], im0.shape).round()
@@ -193,6 +194,8 @@ def run(
                                 bicycle = bicycle + 1
                             elif det[count, -1] == 2:
                                 car = car + 1
+                            elif det[count, -1] == 3:
+                                motorcycle = motorcycle + 1
 
                         with open(f'{txt_path}.txt', 'a') as f:
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
@@ -205,7 +208,7 @@ def run(
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
                     count = count + 1
-                print(person,bicycle,car)
+                print(person,bicycle,car,motorcycle)
 
             # Stream results
             im0 = annotator.result()
