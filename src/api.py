@@ -9,6 +9,7 @@ import subprocess
 from subprocess import PIPE
 from fastapi import FastAPI
 import asyncio
+import mysql.connector
 
 #FastAPI(API)、count(初期動作のトリガー)、response_lis(初期値)
 app = FastAPI()
@@ -29,16 +30,32 @@ def save_frame_camera_cycle():
     ext = 'jpg'
 
     while True:
+        # コネクション作成
+        conn = mysql.connector.connect(
+            host='host.docker.internal',
+            port='3306',
+            user='user',
+            password='password',
+            database='web_system'
+        )
+        # 接続状況確認
+        print(conn.is_connected())
+        cur = conn.cursor(buffered=True)
+        cur.execute("SELECT spots_name, spots_url FROM spots")
+        db_lis = cur.fetchall()
+        print(db_lis[0])
+        cur.close()
+
         #detect_lis(一時保存用)
         detect_lis = []
         #現在データベースが無いため仮の2次元リストに値を保存しています
-        url_lis = [['渋谷スクランブル交差点','https://www.youtube.com/watch?v=3kPH7kTphnE']]
+        url_lis = [['渋谷スクランブル交差点','https://www.youtube.com/watch?v=3kPH7kTphnE'],['渋谷スクランブル交差点2','https://www.youtube.com/watch?v=3kPH7kTphnE']]
         
         if os.path.isdir('yolov5-plateau-system/runs/detect/'):
             shutil.rmtree('yolov5-plateau-system/runs/detect/')
 
-        for i in range(len(url_lis)):
-            video = pafy.new(url_lis[i][1])
+        for i in range(len(db_lis)):
+            video = pafy.new(db_lis[i][1])
             best = video.getbest(preftype="mp4")
             cap = cv2.VideoCapture(best.url)
             
@@ -62,7 +79,7 @@ def save_frame_camera_cycle():
         response_lis.clear()
         for i2 in range(len(detect_lis)):
             data = {
-                'name' : url_lis[i2][0],
+                'name' : db_lis[i2][0],
                 'person' : detect_lis[i2][0],
                 'bicycle' : detect_lis[i2][1],
                 'car' : detect_lis[i2][2],
@@ -81,7 +98,7 @@ def proc1():
     #もしcountが0の時関数を起動（最初の一回のみ）
     if count == 0:
         asyncio.new_event_loop().run_in_executor(None, save_frame_camera_cycle)
-    return response_lis[0]
+    return response_lis
 
     
 
