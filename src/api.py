@@ -23,7 +23,7 @@ response_lis = [{
 def save_frame_camera_cycle():
     global response_lis, count
     count = count+1
-    dir_path = 'yolov5_metaverse/data/images'
+    dir_path = 'yolov5-plateau-system/data/images'
     basename = 'camera_capture_cycle'
     ext = 'jpg'
 
@@ -33,8 +33,8 @@ def save_frame_camera_cycle():
         #現在データベースが無いため仮の2次元リストに値を保存しています
         url_lis = [['渋谷スクランブル交差点','https://www.youtube.com/watch?v=3kPH7kTphnE']]
         
-        if os.path.isdir('yolov5_metaverse/runs/detect/'):
-            shutil.rmtree('yolov5_metaverse/runs/detect/')
+        if os.path.isdir('yolov5-plateau-system/runs/detect/'):
+            shutil.rmtree('yolov5-plateau-system/runs/detect/')
 
         for i in range(len(url_lis)):
             video = pafy.new(url_lis[i][1])
@@ -49,11 +49,11 @@ def save_frame_camera_cycle():
             ret, frame = cap.read()
             cv2.imwrite('{}_{}.{}'.format(base_path, datetime.datetime.now().strftime('%Y%m%d%H%M%S%f'), ext), frame)
             
-            proc = subprocess.run(['python', 'yolov5_metaverse/main.py','--save-txt'], stdout=PIPE, stderr=PIPE)
+            proc = subprocess.run(['python', 'yolov5-plateau-system/main.py','--save-txt'], stdout=PIPE, stderr=PIPE)
             proc_str = proc.stdout.decode('utf-8').split()
             proc_int = [int(s) for s in proc_str]
             #検出が終わった画像の削除(要望があれば画像のパス返す処理を追加します)
-            target_dir = 'yolov5_metaverse/data/images/'
+            target_dir = 'yolov5-plateau-system/data/images/'
             shutil.rmtree(target_dir)
             os.mkdir(target_dir)
             detect_lis.append(proc_int)

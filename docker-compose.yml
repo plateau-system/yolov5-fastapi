@@ -3,7 +3,7 @@ services:
   python3:
     restart: always
     build: .
-    container_name: 'tgs_python3'
+    container_name: 'plateau_system_python3'
     working_dir: '/root/'
     tty: true
     volumes:
