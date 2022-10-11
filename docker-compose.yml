@@ -1,0 +1,14 @@
+version: '3'
+services:
+  python3:
+    restart: always
+    build: .
+    container_name: 'tgs_python3'
+    working_dir: '/root/'
+    tty: true
+    volumes:
+      - ./src:/root/src
+    ports:
+      - 8090:8090
+    environment:
+      - PORT=8090
