@@ -10,8 +10,8 @@ yolov5_test
 ```
   
 ## 環境構築
-〇Dockerのインストール  
 〇Pythonのインストール(version3.10)  
+〇Dockerのインストール  
 〇Postmanのインストール
   
 〇任意のディレクトリで以下のコマンドを順番に実行。  
