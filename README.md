@@ -11,8 +11,8 @@ yolov5_test
   
 ## 環境構築
 〇Dockerのインストール  
-〇Pythonのインストール(自分は3.10を使用)  
-〇Postmanのインストール(APIの開発テストをするツールです。各自使いたいツールで良いと思います。)
+〇Pythonのインストール(version3.10)  
+〇Postmanのインストール
   
 〇任意のディレクトリで以下のコマンドを順番に実行。  
 1.リポジトリのクローン(GitHub Desktopでクローンしている場合は必要ありません)
@@ -21,7 +21,7 @@ git clone https://github.com/k-seminar/kamigame_yolov5.git
 ```
 2.kamigame_yolov5ディレクトリに移動。
 ```
-cd kamigame_yolov5(ブランチによって名前が変わるかも)
+cd kamigame_yolov5
 ```
 3.Dockerのイメージをビルド
 ```
